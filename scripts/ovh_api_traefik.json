@@ -1,0 +1,20 @@
+curl -XPOST -H"X-Ovh-Application: <APPLICATION-KEYS>" -H "Content-type: application/json" \
+https://eu.api.ovh.com/1.0/auth/credential  -d '{
+    "accessRules": [
+        {
+            "method": "POST",
+            "path": "/domain/zone/<DOMAIN>/record"
+        },
+        {
+            "method": "POST",
+            "path": "/domain/zone/<DOMAIN>/refresh"
+        },
+        {
+            "method": "DELETE",
+            "path": "/domain/zone/<DOMAIN>/record"
+        }
+    ],
+    "redirection":"https://www.google.fr/"
+}'
+
+//ajouter toutes les paths necessaires

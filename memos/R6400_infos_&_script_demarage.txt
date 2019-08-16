@@ -1,0 +1,62 @@
+## Script de demarage ##
+echo "" > /proc/switch/eth0/vlan/2/ports
+echo "1 2 3 5t*" > /proc/switch/eth0/vlan/1/ports
+echo "0t 4t 5t" > /proc/switch/eth0/vlan/100/ports
+ifconfig vlan2 down
+vconfig rem vlan2
+vconfig add eth0 100
+ifconfig vlan100 up
+ifconfig vlan100 txqueuelen 0
+ifconfig vlan1 txqueuelen 0
+nvram set wan_ifname=vlan100
+nvram set wan_ifnames=vlan100
+nvram set wan_ifname2=vlan100
+startservice wan
+
+#Normalement le script ci-dessus suffit mais au cas ou 
+#la suite permet de configurer le DHCP wan
+
+## Clone MAC adresse ##
+#Setup > MAC Adress Clone
+enable
+Clone WAN MAC : <MAC ADDR BBOX>
+
+## DHCP WAN ##
+#Setup > Basic Setup > WAN Connection Type
+Connection Type : DHCP Authentification
+DHCP Vendorclass : BYGTELIAD
+DHCP Client ID : 01 + MAC_ADDR
+#le '01' indique que c'est une adresse ethernet
+#derrière on met la mac adresse de la bbox
+# ex : 01EC:08:80:F6:CE:F0
+
+## TV ##
+# /!\ Pour ne pas avoir de probleme d'adresse IP,
+#mettre le decodeur en IP fixe
+#Setup > Basic Setup > Networking > Bridging
+pour br0 => IGMP Snooping : on 
+#Security > Firewall > Block WAN Requests
+Décocher "Filter Multicast"
+
+## VOD ##
+#NAT / QoS > Port Range Forwarding
+Add :
+Application => VOD
+Start => 20000
+End => 30000
+Protocol => UDP
+IP Address => <IP DECODEUR BOUYGUE>
+Enable => cocher
+
+## DHCP LAN ##
+#Setup > Basic Setup > Network Setup > Network Address Server Settings (DHCP)
+(vers la fin) cocher Use DNSMasq for DNS #normalement deja coche
+#Services > Services > Services Management > Dnsmasq
+(vers la fin) Additional Dnsmasq Options : dhcp-option=6,<pihole ip addr>,<dns 2 ip addr>
+#ex : dhcp-option=6,10.33.0.10,9.9.9.9
+
+## LAN ##
+10.33.0.0/24
+routeur en 10.33.0.1
+DHCP 10.33.0.50 => 10.33.0.150
+
