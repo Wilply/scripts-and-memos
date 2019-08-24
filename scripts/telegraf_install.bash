@@ -7,7 +7,7 @@ echo "debian version : ${VERSION}"
 echo "[INFO] add telegraph repo"
 
 wget -qO- https://repos.influxdata.com/influxdb.key | sudo apt-key add -
-sudo echo "deb https://repos.influxdata.com/debian ${VERSION} stable > /etc/apt/sources.list.d/influxdb.list"
+echo "deb https://repos.influxdata.com/debian ${VERSION} stable" | sudo tee "/etc/apt/sources.list.d/influxdb.list"
 
 echo "[INFO] installing telegraf & tools"
 sudo apt-get update && sudo apt-get install -y hddtemps lm-sensors telegraf
