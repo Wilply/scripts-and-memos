@@ -1,4 +1,5 @@
 #!/bin/bash
+apt install -y gnupg2
 
 tee /etc/apt/sources.list.d/mongodb-org-4.2.list << EOF
 deb https://repo.mongodb.org/apt/debian buster/mongodb-org/4.2 main
