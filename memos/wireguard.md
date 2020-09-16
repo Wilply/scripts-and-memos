@@ -22,8 +22,8 @@ PrivateKey = <Server Private Key>
 ListenPort = <Port>
 Address = X.Y.Z.1/24 #Peer network =/= lan
 #NAT :
-PostUp = /usr/sbin/iptables -A FORWARD -i %i -j ACCEPT; /usr/sbin/iptables -A FORWARD -o %i -j ACCEPT; /usr/sbin/iptables -t nat -A POSTROUTING -o <iface> -j MASQUERADE
-PostDown = /usr/sbin/iptables -D FORWARD -i %i -j ACCEPT; /usr/sbin/iptables -D FORWARD -o %i -j ACCEPT; /usr/sbin/iptables -t nat -D POSTROUTING -o <iface> -j MASQUERADE
+PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -A FORWARD -o %i -j ACCEPT; iptables -t nat -A POSTROUTING -o <iface> -j MASQUERADE
+PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -D FORWARD -o %i -j ACCEPT; iptables -t nat -D POSTROUTING -o <iface> -j MASQUERADE
 ```
 #### 5) Configure Peer
 [wg0.conf]
