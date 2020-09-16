@@ -19,7 +19,7 @@ cd /etc/wireguard && wg genkey | tee privatekey | wg pubkey > publickey
 ```bash
 [Interface]
 PrivateKey = <Server Private Key>
-ListenPort = 58330
+ListenPort = <Port>
 Address = X.Y.Z.1/24 #Peer network =/= lan
 #NAT :
 PostUp = /usr/sbin/iptables -A FORWARD -i %i -j ACCEPT; /usr/sbin/iptables -A FORWARD -o %i -j ACCEPT; /usr/sbin/iptables -t nat -A POSTROUTING -o <iface> -j MASQUERADE
@@ -36,7 +36,7 @@ AllowedIPs = X.Y.Z.2/32
 ```bash
 [Interface]
 PrivateKey = <Client Private Key>
-ListenPort = 58330
+ListenPort = <Port>
 Address = X.Y.Z.2/32
 DNS = A.B.C.D
 
