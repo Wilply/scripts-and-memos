@@ -18,8 +18,8 @@ rm -rf /adguard_home.tar.gz
 ```
 #### 5) Run 
 ```bash
-rc-service AdGuardHome start;
-rc-service AdGuardHome status
+openrc -s AdGuardHome start
+openrc -s AdGuardHome status
 ```
 #### 6) [Optional] Run AdGuardHome at boot
 ```bash
