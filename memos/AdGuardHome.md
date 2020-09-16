@@ -14,7 +14,7 @@ rm -rf /adguard_home.tar.gz
 ```
 #### 4) Install
 ```bash
-/AdGuardHome/AdGuardHome -s install
+wget -O /etc/init.d/AdGuardHome https://raw.githubusercontent.com/Wilply/scripts-and-memos/master/scripts/AdGuardHome
 ```
 #### 5) Run 
 ```bash
