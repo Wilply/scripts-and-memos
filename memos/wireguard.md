@@ -43,5 +43,5 @@ DNS = A.B.C.D
 [Peer]
 PublicKey = <Server Public Key>
 AllowedIPs = X.Y.Z.0/24, #any other networks to route to vpn (eg : 0.0.0.0/0 or lan 192.168.0.0/16)
-Endpoint = <Server Public @IP>:58330
+Endpoint = <Server Public @IP>:<Port>
 ```
