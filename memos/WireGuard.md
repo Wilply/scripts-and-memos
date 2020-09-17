@@ -10,11 +10,17 @@ echo "http://dl-cdn.alpinelinux.org/alpine/v3.12/community" >> /etc/apk/reposito
 apk update
 apk add wireguard-tools iptables
 ```
-#### 3) Generate Keys
+#### 3) Enable Routing
+```bash
+echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
+echo "net.ipv4.conf.all.proxy_arp = 1" >> /etc/sysctl.conf
+echo wireguard >> /etc/modules
+```
+#### 4) Generate Keys
 ```bash
 cd /etc/wireguard && wg genkey | tee privatekey | wg pubkey > publickey
 ```
-#### 4) Configure Interface
+#### 5) Configure Interface
 [wg0.conf]
 ```bash
 [Interface]
@@ -25,14 +31,14 @@ Address = X.Y.Z.1/24 #Peer network =/= lan
 PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -A FORWARD -o %i -j ACCEPT; iptables -t nat -A POSTROUTING -o <iface> -j MASQUERADE
 PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -D FORWARD -o %i -j ACCEPT; iptables -t nat -D POSTROUTING -o <iface> -j MASQUERADE
 ```
-#### 5) Configure Peer
+#### 6) Configure Peer
 [wg0.conf]
 ```bash
 [Peer]
 PublicKey = <Client Public Key>
 AllowedIPs = X.Y.Z.2/32
 ```
-#### 6) Configure Client
+#### 7) Configure Client
 ```bash
 [Interface]
 PrivateKey = <Client Private Key>
