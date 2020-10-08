@@ -19,7 +19,7 @@ password=XXX
 ```
 Add next line to /etc/fstab
 ```bash
-//host.fqdn/USERS/swarm /mnt/cifs/swarm cifs credentials=/path/to/cred.credentials,uid=0,gid=0 0 0
+//host.fqdn/USERS/swarm /mnt/cifs/swarm cifs credentials=/path/to/cred.credentials,exec,rw,uid=0,gid=0,dir_mode=0777,file_mode=0777 0 0
 ```
 Create Dir
 ```bash
@@ -28,4 +28,9 @@ mkdir -p /mnt/cifs/swarm
 Mount
 ```bash
 mount -a
+```
+Mount at boot
+
+```
+rc-update add netmount default
 ```
