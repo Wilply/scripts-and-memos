@@ -9,8 +9,15 @@ rc-service sshd reload
 #### Package
 ```bash
 apk update
-apk add cifs-utils git
+apk add cifs-utils git tzdata
 ```
+
+### Set TimeZone
+```
+cp /usr/share/zoneinfo/Europe/Paris /etc/localtime && \
+echo "Europe/Paris" >  /etc/timezone
+```
+
 #### CIFS
 cred.credentials
 ```bash
