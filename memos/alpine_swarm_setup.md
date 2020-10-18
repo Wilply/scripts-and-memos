@@ -32,13 +32,9 @@ Add next line to /etc/fstab
 ```bash
 host.fqdn:/volume1/SWARM /mnt/swarm nfs _netdev,vers=4,defaults 0 0
 ```
-start services
+Mount & start services
 ```bash
 rc-service nfsmount start
-```
-Mount
-```bash
-mount -a
 ```
 Mount at boot
 ```bash
