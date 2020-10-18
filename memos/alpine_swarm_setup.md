@@ -38,7 +38,7 @@ rc-service nfsmount start
 ```
 Mount at boot
 ```bash
-rc-update add nfsmount
+rc-update add nfsmount default
 rc-update add netmount default
 ```
 #### CIFS
