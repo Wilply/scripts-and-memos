@@ -7,14 +7,27 @@ rc-service sshd reload
 ```
 
 #### Package
+Enable community repo : remove the `#` before the community line in `/etc/apk/repositories`
+Install package
 ```bash
 apk update
-apk add git \
+apk add --no-cache \
+    git \
     tzdata \
-    cifs-utils \
-    nfs-utils
+    docker
 ```
-
+CIFS :
+```
+apk add --no-cache cifs-utils
+```
+NFS :
+```
+apk add --no-cache nfs-utils
+```
+GUEST-AGENT :
+```
+apk add --no-cache qemu-guest-agent
+```
 #### Set TimeZone
 ```
 cp /usr/share/zoneinfo/Europe/Paris /etc/localtime && \
