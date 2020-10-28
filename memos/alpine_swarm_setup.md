@@ -30,7 +30,7 @@ mkdir -p /mnt/swarm
 ```
 Add next line to /etc/fstab
 ```bash
-host.fqdn:/volume1/SWARM /mnt/swarm nfs _netdev,vers=4,defaults 0 0
+host.fqdn:/volume1/SWARM /mnt/swarm nfs _netdev,vers=4 0 0
 ```
 Mount & start services
 ```bash
