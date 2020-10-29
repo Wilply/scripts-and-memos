@@ -9,7 +9,7 @@ rc-service sshd reload
 
 #### Package
 Enable community repositorie
-```
+```bash
 sed -i '3s/#//' /etc/apk/repositories
 ```
 Install package
