@@ -97,3 +97,9 @@ Mount at boot
 ```bash
 rc-update add netmount default
 ```
+#### Docker
+Run daemon and start at boot
+```
+rc-service docker start && \
+rc-update add docker default
+```
