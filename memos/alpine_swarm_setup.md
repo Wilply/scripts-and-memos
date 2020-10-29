@@ -1,8 +1,9 @@
 ## Docker Swarm setup
 
 #### Config
-Allow root SSH ('permit yes' and remove '#')
+Allow root SSH
 ```bash
+sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
 rc-service sshd reload
 ```
 
@@ -17,21 +18,34 @@ apk add --no-cache \
     docker
 ```
 CIFS :
-```
+```bash
 apk add --no-cache cifs-utils
 ```
 NFS :
-```
+```bash
 apk add --no-cache nfs-utils
 ```
-GUEST-AGENT :
-```
+Guest-agent (Proxmox) :
+```bash
 apk add --no-cache qemu-guest-agent
 ```
-#### Set TimeZone
-```
+
+#### Set TimeZone (if not set at installation)
+```bash
 cp /usr/share/zoneinfo/Europe/Paris /etc/localtime && \
 echo "Europe/Paris" >  /etc/timezone
+```
+
+#### Guest-agent
+Enable Qemu-agent in proxmox (options => QEMU Guest Agent => Enable) and **reboot from proxmox** \
+Edit init.d file ([bug report](https://gitlab.alpinelinux.org/alpine/aports/-/issues/8894 "Alpine Linux GitLab"))
+```bash
+sed -i 's/^command_args.*/command_args="-m virtio-serial -p \/dev\/vport2p1 -l \/var\/log\/qemu-ga.log -d"/g' /etc/init.d/qemu-guest-agent
+```
+Start and enable at boot
+```bash
+rc-service qemu-guest-agent start
+rc-update add qemu-guest-agent default
 ```
 
 #### NFS
