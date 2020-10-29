@@ -61,7 +61,7 @@ mkdir -p /mnt/swarm
 ```
 Add next line to /etc/fstab
 ```bash
-host.fqdn:/volume1/SWARM /mnt/swarm nfs _netdev,vers=4 0 0
+echo "host.fqdn:/path/on/server /local/path nfs _netdev,vers=4 0 0" >> /etc/fstab
 ```
 Mount & start services
 ```bash
@@ -84,7 +84,7 @@ mkdir -p /mnt/cifs/swarm
 ```
 Add next line to /etc/fstab
 ```bash
-//host.fqdn/USERS/swarm /mnt/cifs/swarm cifs credentials=/path/to/cred.credentials,exec,rw,uid=0,gid=0,dir_mode=0777,file_mode=0777 0 0
+echo "//host.fqdn/USERS/swarm /mnt/cifs/swarm cifs credentials=/path/to/cred.credentials,exec,rw,uid=0,gid=0,dir_mode=0777,file_mode=0777 0 0" >> /etc/fstab
 ```
 Mount
 ```bash
