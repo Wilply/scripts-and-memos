@@ -17,7 +17,6 @@ Install package
 apk update && \
 apk add --no-cache \
     git \
-    tzdata \
     docker
 ```
 CIFS :
@@ -35,8 +34,10 @@ apk add --no-cache qemu-guest-agent
 
 #### Set TimeZone (if not set at installation)
 ```bash
+apk add --no-cache tzdata
 cp /usr/share/zoneinfo/Europe/Paris /etc/localtime && \
 echo "Europe/Paris" >  /etc/timezone
+apk del tzdata
 ```
 
 #### Guest-agent
