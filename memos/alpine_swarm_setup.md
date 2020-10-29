@@ -55,6 +55,10 @@ rc-update add qemu-guest-agent default
 #### NFS
 **Before doing installing, make sure the server has access to the share**
 
+Start services
+```bash
+rc-service nfsmount start
+```
 Create directory
 ```bash
 mkdir -p /mnt/swarm
@@ -63,14 +67,13 @@ Add next line to /etc/fstab
 ```bash
 echo "host.fqdn:/path/on/server /local/path nfs _netdev,vers=4 0 0" >> /etc/fstab
 ```
-Mount & start services
+Mount
 ```bash
-rc-service nfsmount start
+mount -a
 ```
 Mount at boot
 ```bash
 rc-update add nfsmount default
-rc-update add netmount default
 ```
 #### CIFS
 cred.credentials
