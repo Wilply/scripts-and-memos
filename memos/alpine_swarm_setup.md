@@ -8,10 +8,13 @@ rc-service sshd reload
 ```
 
 #### Package
-Enable community repo : remove the `#` before the community line in `/etc/apk/repositories`
+Enable community repositorie
+```
+sed -i '3s/#//' /etc/apk/repositories
+```
 Install package
 ```bash
-apk update
+apk update && \
 apk add --no-cache \
     git \
     tzdata \
