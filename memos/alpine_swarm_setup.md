@@ -103,3 +103,11 @@ Run daemon and start at boot
 rc-service docker start && \
 rc-update add docker default
 ```
+Initialize cluster (on one of the manager node)
+```
+docker swarm init --advertise-addr <MANAGER NODE @IP>
+```
+Join cluster (all others nodes)
+```
+docker swarm join --token <TOKEN> <MANAGER NODE @IP>:2377
+```
