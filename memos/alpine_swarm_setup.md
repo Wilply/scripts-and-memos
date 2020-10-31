@@ -1,13 +1,13 @@
 ## Docker Swarm setup
 
-#### Config
+### Config
 Allow root SSH
 ```bash
 sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
 rc-service sshd reload
 ```
 
-#### Package
+### Package
 Enable community repositorie
 ```bash
 sed -i '3s/#//' /etc/apk/repositories
@@ -32,7 +32,7 @@ Guest-agent (Proxmox) :
 apk add --no-cache qemu-guest-agent
 ```
 
-#### Set TimeZone (if not set at installation)
+### Set TimeZone (if not set at installation)
 ```bash
 apk add --no-cache tzdata
 cp /usr/share/zoneinfo/Europe/Paris /etc/localtime && \
@@ -40,7 +40,7 @@ echo "Europe/Paris" >  /etc/timezone
 apk del tzdata
 ```
 
-#### Guest-agent
+### Guest-agent
 Enable Qemu-agent in proxmox (options => QEMU Guest Agent => Enable) and **reboot from proxmox** \
 Edit init.d file ([bug report](https://gitlab.alpinelinux.org/alpine/aports/-/issues/8894 "Alpine Linux GitLab"))
 ```bash
@@ -52,7 +52,7 @@ rc-service qemu-guest-agent start
 rc-update add qemu-guest-agent default
 ```
 
-#### NFS
+### NFS
 **Before doing installing, make sure the server has access to the share**
 
 Start services
@@ -75,7 +75,7 @@ Mount at boot
 ```bash
 rc-update add nfsmount default
 ```
-#### CIFS
+### CIFS
 cred.credentials
 ```bash
 username=XXX
@@ -97,7 +97,7 @@ Mount at boot
 ```bash
 rc-update add netmount default
 ```
-#### Docker
+### Docker
 Run daemon and start at boot
 ```
 rc-service docker start && \
@@ -110,4 +110,26 @@ docker swarm init --advertise-addr <MANAGER NODE @IP>
 Join cluster (all others nodes)
 ```
 docker swarm join --token <TOKEN> <MANAGER NODE @IP>:2377
+```
+##### Setup macvlan network
+On each node
+```
+docker network create \
+  --config-only \
+  --subnet <LAN CIDR> \
+  --gateway <GW @IP> \
+  --opt parent=<IFACE> \
+  --ip-range  <subnet CIDR> \
+  swarm_macvlan_config
+```
+Nota :\
+--ip-range is a subnet of --subnet, all @ip will be taken from this range. \
+\
+On the manager
+```
+docker network create \
+  --driver macvlan \
+  --scope swarm \
+  --config-from swarm_macvlan_config \
+  swarm_macvlan
 ```
