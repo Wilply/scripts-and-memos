@@ -12,27 +12,27 @@ Enable community repositorie
 ```bash
 sed -i '3s/#//' /etc/apk/repositories
 ```
-Install package
+#### Install package
 ```bash
 apk update && \
 apk add --no-cache \
     git \
     docker
 ```
-CIFS :
+##### CIFS :
 ```bash
 apk add --no-cache cifs-utils
 ```
-NFS :
+##### NFS :
 ```bash
 apk add --no-cache nfs-utils
 ```
-Guest-agent (Proxmox) :
+##### Guest-agent (Proxmox) :
 ```bash
 apk add --no-cache qemu-guest-agent
 ```
 
-### Set TimeZone (if not set at installation)
+### Set TimeZone
 ```bash
 apk add --no-cache tzdata
 cp /usr/share/zoneinfo/Europe/Paris /etc/localtime && \
