@@ -111,7 +111,7 @@ Join cluster (all others nodes)
 ```
 docker swarm join --token <TOKEN> <MANAGER NODE @IP>:2377
 ```
-##### Setup macvlan network
+##### Setup a macvlan network
 On each node
 ```
 docker network create \
@@ -120,16 +120,17 @@ docker network create \
   --gateway <GW @IP> \
   --opt parent=<IFACE> \
   --ip-range  <subnet CIDR> \
-  swarm_macvlan_config
+  <service>_macvlan_config
 ```
 Nota :\
 --ip-range is a subnet of --subnet, all @ip will be taken from this range. \
+--ip-range can be a /32, (one container, one ip) \
 \
 On the manager
 ```
 docker network create \
   --driver macvlan \
   --scope swarm \
-  --config-from swarm_macvlan_config \
-  swarm_macvlan
+  --config-from <service>_macvlan_config \
+  <service>_macvlan
 ```
