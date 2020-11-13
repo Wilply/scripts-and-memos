@@ -83,11 +83,11 @@ password=XXX
 ```
 Create directory
 ```bash
-mkdir -p /mnt/cifs/swarm
+mkdir -p /mnt/data/users
 ```
 Add next line to /etc/fstab
 ```bash
-echo "//host.fqdn/USERS/swarm /mnt/cifs/swarm cifs credentials=/path/to/cred.credentials,exec,rw,uid=0,gid=0,dir_mode=0777,file_mode=0777 0 0" >> /etc/fstab
+echo "//host.fqdn/USERS /mnt/data/users cifs credentials=/path/to/cred.credentials,exec,rw,uid=0,gid=0,dir_mode=0777,file_mode=0777 0 0" >> /etc/fstab
 ```
 Mount
 ```bash
